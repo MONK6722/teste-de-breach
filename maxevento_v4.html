@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#0D0920"/>
+<title>maxevento · Alto Vale do Itajaí</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#8B5CF6;--p2:#EC4899;--grad:linear-gradient(135deg,#8B5CF6,#EC4899);
+  --bg:#0D0920;--card:#16102B;--surf:#1E1640;--surf2:#251D4A;
+  --txt:#F5F0FF;--mut:#9B8EC4;--acc:#A78BFA;--grn:#34D399;--ylw:#FCD34D;
+  --r:12px;--r2:18px;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+html{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);height:100%;overflow:hidden;font-size:14px;-webkit-font-smoothing:antialiased}
+.screen{display:none;flex-direction:column;height:100vh;overflow-y:auto;overflow-x:hidden;animation:fi .2s ease;-webkit-overflow-scrolling:touch}
+.screen.active{display:flex}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;position:sticky;top:0;z-index:100;background:rgba(13,9,32,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(139,92,246,.15);flex-shrink:0}
+.logo{display:flex;align-items:center;gap:7px;cursor:pointer;text-decoration:none}
+.logo-mark{width:30px;height:30px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2.2}
+.logo-txt{font-family:var(--font-h);font-size:14px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nb{width:34px;height:34px;border-radius:50%;background:var(--surf);border:1px solid rgba(139,92,246,.18);color:var(--mut);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.18s;-webkit-text-fill-color:var(--mut);flex-shrink:0}
+.nb:active{background:var(--surf2);transform:scale(.93)}
+
+/* BNAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(13,9,32,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(139,92,246,.16);display:flex;z-index:200;padding-bottom:var(--safe-bottom)}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 0 10px;cursor:pointer;gap:2px;color:var(--mut);font-size:9px;font-weight:500;border:none;background:none;transition:.18s;font-family:var(--font-b)}
+.bi.on{color:var(--acc)}
+.bi svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8}
+.bi.on svg{stroke-width:2.2}
+
+/* FORMS */
+.finput{width:100%;background:var(--surf);border:1.5px solid rgba(139,92,246,.18);border-radius:var(--r);padding:11px 13px;color:var(--txt);font-size:13px;font-family:var(--font-b);outline:none;transition:.2s;display:block;-webkit-appearance:none;appearance:none}
+.finput:focus{border-color:var(--p);background:rgba(30,22,64,.9)}
+.finput::placeholder{color:var(--mut)}
+.ftarea{height:82px;resize:none}
+.flabel{font-size:10px;color:var(--mut);margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.fgroup{margin-bottom:12px}
+select.finput{color:var(--txt)}
+select.finput option{background:var(--card);color:var(--txt)}
+.btnP{width:100%;padding:13px;border-radius:var(--r);background:var(--grad);border:none;color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--font-h);transition:.15s;letter-spacing:.2px}
+.btnP:active{transform:scale(.97);opacity:.9}
+.btnO{width:100%;padding:11px;border-radius:var(--r);background:transparent;border:1.5px solid rgba(139,92,246,.28);color:var(--acc);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-b);transition:.15s}
+.btnO:active{background:rgba(139,92,246,.08)}
+
+/* CHIPS */
+.chips{display:flex;gap:7px;overflow-x:auto;padding:9px 14px 4px;scrollbar-width:none;flex-shrink:0}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:6px 13px;border-radius:20px;font-size:11px;font-weight:600;border:1.5px solid rgba(139,92,246,.22);background:transparent;color:var(--mut);cursor:pointer;transition:.18s;font-family:var(--font-b)}
+.chip.on{background:var(--grad);border-color:transparent;color:#fff}
+.chip:active{transform:scale(.95)}
+
+/* SECTION */
+.sec{padding:14px}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.st{font-family:var(--font-h);font-size:14px;font-weight:700}
+.sa{font-size:11px;color:var(--acc);cursor:pointer;background:none;border:none;font-family:var(--font-b);font-weight:600}
+
+/* EVENT CARDS — compact */
+.ec{background:var(--card);border-radius:var(--r);border:1px solid rgba(139,92,246,.1);overflow:hidden;cursor:pointer;display:flex;transition:.15s;margin-bottom:8px;min-height:72px}
+.ec:active{transform:scale(.98);border-color:rgba(139,92,246,.3)}
+.ec-img{width:72px;height:72px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.ec-body{padding:8px 11px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.ec-name{font-family:var(--font-h);font-size:12px;font-weight:700;color:var(--txt);line-height:1.25;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ec-meta{font-size:10px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ec-bot{display:flex;align-items:center;justify-content:space-between;margin-top:3px}
+.price-tag{font-size:12px;font-weight:700;color:var(--acc)}
+.jbtn{padding:4px 10px;border-radius:16px;background:var(--grad);border:none;color:#fff;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--font-b)}
+
+/* FEATURED */
+.feat-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 14px 6px;scrollbar-width:none;flex-shrink:0}
+.feat-scroll::-webkit-scrollbar{display:none}
+.fc{flex-shrink:0;width:210px;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;transition:.15s}
+.fc:active{transform:scale(.97)}
+.fc-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.fc-ov{position:absolute;bottom:0;left:0;right:0;padding:9px 11px;background:linear-gradient(0deg,rgba(8,4,20,.97) 0%,transparent 100%)}
+.fc-name{font-family:var(--font-h);font-size:12px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:1px}
+.fc-info{font-size:10px;color:rgba(255,255,255,.55)}
+
+/* CAT */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ci{background:var(--surf);border-radius:var(--r);padding:11px 6px 9px;text-align:center;cursor:pointer;border:1px solid rgba(139,92,246,.1);transition:.18s}
+.ci:active{border-color:var(--p);transform:scale(.96)}
+
+/* DETAIL */
+.dh{position:relative;height:180px;display:flex;align-items:center;justify-content:center;font-size:52px;overflow:hidden;flex-shrink:0}
+.dh-actions{position:absolute;top:11px;left:11px;right:11px;display:flex;justify-content:space-between;z-index:10}
+.icon-btn{width:33px;height:33px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;font-family:var(--font-b)}
+.dbody{padding:14px 14px 0}
+.d-info-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid rgba(139,92,246,.08)}
+.d-icon{width:32px;height:32px;border-radius:9px;background:var(--surf);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.d-lbl{font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px}
+.d-val{font-size:12px;font-weight:500;color:var(--txt)}
+
+/* TICKET PANE */
+.ticket-pane{background:var(--surf);border-radius:var(--r2) var(--r2) 0 0;padding:16px 14px;border-top:1px solid rgba(139,92,246,.18);flex-shrink:0}
+.topt{display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:var(--r);padding:10px 12px;border:1.5px solid rgba(139,92,246,.13);cursor:pointer;margin-bottom:7px;transition:.18s}
+.topt.on{border-color:var(--p);background:rgba(139,92,246,.07)}
+
+/* PHOTO */
+.photo-scroll{display:flex;gap:7px;overflow-x:auto;padding:0 0 6px;scrollbar-width:none}
+.photo-scroll::-webkit-scrollbar{display:none}
+.ph-thumb{flex-shrink:0;width:64px;height:64px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px solid rgba(139,92,246,.15)}
+
+/* MAP */
+.map-box{background:var(--surf);border-radius:var(--r);height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1px solid rgba(139,92,246,.15);cursor:pointer;margin-bottom:12px;transition:.18s}
+.map-box:active{border-color:var(--p)}
+
+/* REVIEWS */
+.rv-card{background:var(--surf);border-radius:var(--r);padding:11px;margin-bottom:7px}
+
+/* STARS */
+.istar{font-size:28px;cursor:pointer;transition:.1s;color:rgba(255,255,255,.13)}
+.istar.lit{color:var(--ylw)}
+
+/* ADMIN */
+.admin-card{background:var(--card);border-radius:var(--r);border:1px solid rgba(139,92,246,.13);padding:13px;margin-bottom:9px}
+.status-badge{padding:3px 9px;border-radius:7px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.s-pend{background:rgba(252,211,77,.13);color:var(--ylw)}
+.s-aprv{background:rgba(52,211,153,.13);color:var(--grn)}
+.s-rej{background:rgba(239,68,68,.1);color:#F87171}
+
+/* TAGS */
+.pill{padding:2px 8px;border-radius:7px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.tag-p{background:rgba(139,92,246,.16);color:#C4B5FD}
+.tag-k{background:rgba(236,72,153,.16);color:#F9A8D4}
+.tag-t{background:rgba(20,184,166,.16);color:#5EEAD4}
+.tag-a{background:rgba(245,158,11,.16);color:#FCD34D}
+.tag-b{background:rgba(59,130,246,.16);color:#93C5FD}
+.tag-g{background:rgba(34,197,94,.16);color:#86EFAC}
+
+/* MISC */
+.pb80{padding-bottom:80px}
+.divider{height:1px;background:rgba(139,92,246,.08);margin:3px 0}
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:#1A1030;border:1px solid rgba(139,92,246,.38);color:var(--txt);padding:9px 16px;border-radius:18px;font-size:12px;font-weight:500;z-index:999;opacity:0;pointer-events:none;transition:.28s;white-space:nowrap;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.empty-state{text-align:center;padding:36px 14px;color:var(--mut)}
+.empty-state .em{font-size:36px;margin-bottom:9px}
+.verified{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--grn);font-weight:600}
+
+/* LOGIN */
+.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;overflow-y:auto}
+.login-card{background:var(--card);border-radius:18px;border:1px solid rgba(139,92,246,.22);padding:24px 20px;width:100%;max-width:360px}
+.err-msg{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.22);border-radius:9px;padding:9px 12px;font-size:11px;color:#F87171;margin-bottom:11px;display:none}
+
+/* TICKET CARD */
+.tkt-card{background:var(--card);border-radius:var(--r);border:1px solid rgba(139,92,246,.18);padding:13px;margin-bottom:9px;position:relative;overflow:hidden}
+.tkt-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad)}
+
+/* REGISTER */
+.reg-tab{flex:1;padding:11px 8px;text-align:center;font-size:12px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--mut);border-bottom:2px solid transparent;transition:.2s;font-family:var(--font-b)}
+.reg-tab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--mut);cursor:pointer;font-size:15px;padding:4px}
+.pwd-wrap{position:relative}
+.strength-bar{height:3px;border-radius:2px;margin-top:5px;background:var(--surf2);overflow:hidden;transition:.3s}
+.strength-fill{height:100%;border-radius:2px;transition:width .3s,background .3s}
+.form-hint{font-size:10px;color:var(--mut);margin-top:3px}
+.social-btn{width:100%;padding:11px;border-radius:var(--r);background:var(--surf);border:1.5px solid rgba(139,92,246,.2);color:var(--txt);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-b);display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s;margin-bottom:8px}
+.social-btn:active{background:var(--surf2);transform:scale(.98)}
+.divider-or{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--mut);font-size:11px}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:rgba(139,92,246,.15)}
+.check-wrap{display:flex;align-items:flex-start;gap:9px;padding:3px 0}
+.check-wrap input[type="checkbox"]{width:16px;height:16px;accent-color:var(--p);flex-shrink:0;margin-top:2px;cursor:pointer}
+.check-wrap label{font-size:11px;color:var(--mut);line-height:1.5;cursor:pointer}
+.check-wrap label a{color:var(--acc)}
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:20px;justify-content:center}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;transition:.3s;border:2px solid rgba(139,92,246,.2);color:var(--mut);background:var(--surf)}
+.step-dot.done{background:var(--grad);border-color:transparent;color:#fff}
+.step-dot.active{border-color:var(--p);color:var(--acc);background:rgba(139,92,246,.1)}
+.step-line{flex:1;height:2px;background:rgba(139,92,246,.15);max-width:40px;transition:.3s}
+.step-line.done{background:var(--grad)}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<!-- LOGIN -->
+<div id="s-login" class="screen active">
+  <div class="login-wrap">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="width:52px;height:52px;background:var(--grad);border-radius:15px;display:flex;align-items:center;justify-content:center;margin:0 auto 11px">
+        <svg width="28" height="28" viewBox="0 0 24 24" stroke="#fff" fill="none" stroke-width="2.2"><polyline points="2,12 6,4 10,14 14,8 18,16 22,10"/></svg>
+      </div>
+      <div style="font-family:var(--font-h);font-size:20px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">maxevento</div>
+      <div style="font-size:12px;color:var(--mut);margin-top:3px">Alto Vale do Itajaí · SC</div>
+    </div>
+    <div class="login-card">
+      <div style="display:flex;border-bottom:1px solid rgba(139,92,246,.15);margin-bottom:18px">
+        <button class="reg-tab on" id="tab-login" onclick="switchAuthTab('login')">Entrar</button>
+        <button class="reg-tab" id="tab-reg" onclick="go('s-register')">Criar conta</button>
+      </div>
+      <div id="login-err" class="err-msg">Usuário ou senha incorretos</div>
+      <div class="fgroup"><label class="flabel">Usuário ou e-mail</label><input class="finput" id="l-user" placeholder="seu@email.com" autocomplete="off"/></div>
+      <div class="fgroup"><label class="flabel">Senha</label>
+        <div class="pwd-wrap"><input class="finput" id="l-pass" type="password" placeholder="Sua senha"/><button class="pwd-toggle" onclick="togglePwd('l-pass',this)">👁</button></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:-6px;margin-bottom:14px"><span style="font-size:11px;color:var(--acc);cursor:pointer" onclick="toast('📧 Link enviado para seu e-mail!')">Esqueci a senha</span></div>
+      <button class="btnP" onclick="doLogin()">Entrar</button>
+      <div class="divider-or">ou</div>
+      <button class="social-btn" onclick="doGuestLogin()"><span style="font-size:16px">👤</span> Entrar como visitante</button>
+      <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--mut)">Não tem conta? <span style="color:var(--acc);cursor:pointer;font-weight:600" onclick="go('s-register')">Cadastre-se grátis →</span></div>
+    </div>
+    <div style="margin-top:18px;font-size:10px;color:rgba(155,142,196,.5);text-align:center">📸 @venha.aqui.altovale</div>
+  </div>
+</div>
+
+<!-- CADASTRO -->
+<div id="s-register" class="screen">
+  <div class="nav">
+    <button class="nb" onclick="go('s-login')" style="-webkit-text-fill-color:var(--mut)">←</button>
+    <span style="font-family:var(--font-h);font-size:14px;font-weight:700">Criar conta</span>
+    <div style="width:34px"></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:18px 16px 24px">
+    <!-- step indicator -->
+    <div class="step-indicator">
+      <div class="step-dot active" id="sdot1">1</div>
+      <div class="step-line" id="sline1"></div>
+      <div class="step-dot" id="sdot2">2</div>
+      <div class="step-line" id="sline2"></div>
+      <div class="step-dot" id="sdot3">✓</div>
+    </div>
+
+    <!-- STEP 1: dados pessoais -->
+    <div id="reg-step1">
+      <div style="font-family:var(--font-h);font-size:17px;font-weight:700;margin-bottom:3px">Seus dados 👤</div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:18px">Rápido! Menos de 1 minuto</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fgroup" style="margin-bottom:0">
+          <label class="flabel">Nome *</label>
+          <input class="finput" id="r-nome" placeholder="Ana"/>
+        </div>
+        <div class="fgroup" style="margin-bottom:0">
+          <label class="flabel">Sobrenome *</label>
+          <input class="finput" id="r-sobrenome" placeholder="Silva"/>
+        </div>
+      </div>
+      <div style="height:10px"></div>
+      <div class="fgroup">
+        <label class="flabel">E-mail *</label>
+        <input class="finput" id="r-email" type="email" placeholder="seu@email.com"/>
+        <div class="form-hint">Nunca compartilharemos seu e-mail</div>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">WhatsApp</label>
+        <input class="finput" id="r-phone" type="tel" placeholder="(47) 9 9999-9999" oninput="maskPhone(this)"/>
+        <div class="form-hint">Opcional — para notificações de eventos</div>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Cidade *</label>
+        <select class="finput" id="r-city">
+          <option value="">Selecione sua cidade...</option>
+          <option>Rio do Sul</option><option>Ituporanga</option><option>Ibirama</option>
+          <option>Taió</option><option>Agrolândia</option><option>Lontras</option>
+          <option>Pouso Redondo</option><option>Outra no Alto Vale</option>
+        </select>
+      </div>
+      <button class="btnP" onclick="regStep1()">Continuar →</button>
+    </div>
+
+    <!-- STEP 2: senha e preferências -->
+    <div id="reg-step2" style="display:none">
+      <div style="font-family:var(--font-h);font-size:17px;font-weight:700;margin-bottom:3px">Segurança 🔒</div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:18px">Crie uma senha forte</div>
+
+      <div class="fgroup">
+        <label class="flabel">Usuário *</label>
+        <input class="finput" id="r-user" placeholder="Ex: anasilva123" oninput="checkUsername(this)"/>
+        <div class="form-hint" id="user-hint">Mín. 4 caracteres, sem espaços</div>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Senha *</label>
+        <div class="pwd-wrap">
+          <input class="finput" id="r-pass" type="password" placeholder="Mínimo 6 caracteres" oninput="checkPwdStrength(this)"/>
+          <button class="pwd-toggle" onclick="togglePwd('r-pass',this)">👁</button>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="strength-fill" style="width:0%"></div></div>
+        <div class="form-hint" id="strength-txt">Digite uma senha</div>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Confirmar senha *</label>
+        <div class="pwd-wrap">
+          <input class="finput" id="r-pass2" type="password" placeholder="Repita a senha"/>
+          <button class="pwd-toggle" onclick="togglePwd('r-pass2',this)">👁</button>
+        </div>
+      </div>
+
+      <div style="background:var(--surf);border-radius:var(--r);padding:12px;margin-bottom:14px;border:1px solid rgba(139,92,246,.12)">
+        <div style="font-size:11px;font-weight:700;color:var(--txt);margin-bottom:9px">🎯 Interesses (opcional)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px" id="interest-chips">
+          <button class="chip" onclick="toggleInterest(this,'Música')">🎵 Música</button>
+          <button class="chip" onclick="toggleInterest(this,'Teatro')">🎭 Teatro</button>
+          <button class="chip" onclick="toggleInterest(this,'Cultura')">🎨 Cultura</button>
+          <button class="chip" onclick="toggleInterest(this,'Oficina')">🛠 Oficinas</button>
+          <button class="chip" onclick="toggleInterest(this,'Palestra')">🎤 Palestras</button>
+          <button class="chip" onclick="toggleInterest(this,'Negócio')">💼 Negócios</button>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
+        <div class="check-wrap">
+          <input type="checkbox" id="r-terms" checked/>
+          <label for="r-terms">Concordo com os <a href="#" onclick="toast('📄 Termos de Uso')">Termos de Uso</a> e <a href="#" onclick="toast('📄 Política de Privacidade')">Privacidade</a></label>
+        </div>
+        <div class="check-wrap">
+          <input type="checkbox" id="r-news" checked/>
+          <label for="r-news">Quero receber novidades de eventos por e-mail</label>
+        </div>
+      </div>
+      <div style="display:flex;gap:9px">
+        <button class="btnO" style="width:auto;padding:12px 18px;font-size:12px" onclick="regBackStep()">← Voltar</button>
+        <button class="btnP" style="flex:1" onclick="regStep2()">Criar conta 🎉</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: sucesso -->
+    <div id="reg-step3" style="display:none;text-align:center;padding-top:20px">
+      <div style="font-size:56px;margin-bottom:14px;animation:bounce .5s ease">🎉</div>
+      <div style="font-family:var(--font-h);font-size:20px;font-weight:800;margin-bottom:6px" id="reg-success-name">Bem-vindo!</div>
+      <div style="font-size:13px;color:var(--mut);margin-bottom:24px;line-height:1.6">Sua conta foi criada com sucesso.<br>Explore os eventos do Alto Vale!</div>
+      <button class="btnP" onclick="loginFromReg()">Começar a explorar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="s-home" class="screen">
+  <div class="nav">
+    <div class="logo" onclick="go('s-home')">
+      <div class="logo-mark"><svg viewBox="0 0 24 24" stroke="#fff" fill="none" stroke-width="2.2"><polyline points="2,12 6,4 10,14 14,8 18,16 22,10"/></svg></div>
+      <span class="logo-txt">maxevento</span>
+    </div>
+    <div style="display:flex;gap:7px">
+      <div id="nav-admin-btn" style="display:none"><button class="nb" onclick="go('s-admin')" style="-webkit-text-fill-color:var(--mut)">⚙️</button></div>
+      <button class="nb" onclick="go('s-profile')" style="-webkit-text-fill-color:var(--mut)">👤</button>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div style="padding:14px 14px 8px;background:linear-gradient(180deg,rgba(139,92,246,.08) 0%,transparent 100%)">
+      <div style="font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.2;margin-bottom:2px">O que rola no<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Alto Vale?</span></div>
+      <div style="color:var(--mut);font-size:11px;margin-bottom:11px">📍 Rio do Sul · Ituporanga · Ibirama e mais</div>
+      <div style="display:flex;align-items:center;gap:9px;background:var(--surf);border:1.5px solid rgba(139,92,246,.18);border-radius:var(--r);padding:10px 13px;cursor:pointer" onclick="go('s-search')">
+        <span style="color:var(--mut);font-size:14px">🔍</span><span style="color:var(--mut);font-size:12px">Eventos, artistas, cidades...</span>
+      </div>
+    </div>
+    <div class="chips" id="home-chips">
+      <button class="chip on" onclick="homeCat('Todos',this)">Todos</button>
+      <button class="chip" onclick="homeCat('Música',this)">🎵 Música</button>
+      <button class="chip" onclick="homeCat('Teatro',this)">🎭 Teatro</button>
+      <button class="chip" onclick="homeCat('Oficina',this)">🛠 Oficinas</button>
+      <button class="chip" onclick="homeCat('Palestra',this)">🎤 Palestras</button>
+      <button class="chip" onclick="homeCat('Cultura',this)">🎨 Cultura</button>
+      <button class="chip" onclick="homeCat('Negócio',this)">💼 Negócios</button>
+    </div>
+    <div style="padding:4px 0 4px">
+      <div class="sh" style="padding:0 14px"><span class="st">🔥 Destaques</span><button class="sa" onclick="go('s-events')">Ver todos →</button></div>
+      <div class="feat-scroll" id="feat-scroll"></div>
+    </div>
+    <div class="sec" style="padding-top:10px">
+      <div class="sh"><span class="st">📅 Próximos eventos</span><button class="sa" onclick="go('s-events')">Ver todos →</button></div>
+      <div id="home-list"></div>
+    </div>
+    <div class="sec" style="padding-top:0">
+      <div class="sh"><span class="st">📂 Categorias</span></div>
+      <div class="cgrid" id="cat-grid"></div>
+    </div>
+    <div class="sec" style="padding-top:0">
+      <div style="background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(236,72,153,.08));border:1px solid rgba(236,72,153,.2);border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:22px">📸</span>
+        <div><div style="font-size:12px;font-weight:700;margin-bottom:1px">@venha.aqui.altovale</div><div style="font-size:10px;color:var(--mut)">Instagram — Eventos todo dia!</div></div>
+      </div>
+    </div>
+    <div class="sec" style="padding-top:0">
+      <div class="sh"><span class="st">🕐 Eventos Passados</span></div>
+      <div id="past-list"></div>
+    </div>
+    <div class="sec" style="padding-top:0">
+      <div style="background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.16);border-radius:var(--r);padding:14px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">📢</div>
+        <div style="font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:2px">Tem um evento para divulgar?</div>
+        <div style="font-size:11px;color:var(--mut);margin-bottom:11px">Nossa equipe avalia e publica em até 24h</div>
+        <button class="btnP" style="width:auto;padding:9px 20px;font-size:12px" onclick="go('s-suggest')">Sugerir Evento ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<div id="s-events" class="screen">
+  <div class="nav">
+    <button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button>
+    <span style="font-family:var(--font-h);font-size:14px;font-weight:700" id="ev-title">Eventos</span>
+    <div style="width:34px"></div>
+  </div>
+  <div style="padding:9px 14px 0">
+    <div style="display:flex;align-items:center;gap:9px;background:var(--surf);border:1.5px solid rgba(139,92,246,.18);border-radius:var(--r);padding:9px 13px">
+      <span style="color:var(--mut)">🔍</span><input id="ev-search" placeholder="Buscar..." oninput="filterEvList()" style="background:none;border:none;color:var(--txt);font-size:13px;flex:1;outline:none;font-family:var(--font-b)"/>
+    </div>
+  </div>
+  <div class="chips" id="ev-chips"></div>
+  <div style="padding:0 14px 7px;display:flex;gap:5px;overflow-x:auto;scrollbar-width:none" id="city-chips">
+    <button class="chip on" style="padding:5px 10px;font-size:10px" onclick="evCity('Todas',this)">📍 Todas</button>
+    <button class="chip" style="padding:5px 10px;font-size:10px" onclick="evCity('Rio do Sul',this)">Rio do Sul</button>
+    <button class="chip" style="padding:5px 10px;font-size:10px" onclick="evCity('Ituporanga',this)">Ituporanga</button>
+    <button class="chip" style="padding:5px 10px;font-size:10px" onclick="evCity('Ibirama',this)">Ibirama</button>
+    <button class="chip" style="padding:5px 10px;font-size:10px" onclick="evCity('Taió',this)">Taió</button>
+    <button class="chip" style="padding:5px 10px;font-size:10px" onclick="evCity('Agrolândia',this)">Agrolândia</button>
+    <button class="chip" style="padding:5px 10px;font-size:10px" onclick="evCity('Lontras',this)">Lontras</button>
+  </div>
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div class="sec" style="padding-top:6px">
+      <div id="ev-list"></div>
+      <div id="ev-empty" style="display:none" class="empty-state"><div class="em">😕</div>Nenhum evento encontrado</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div id="s-search" class="screen">
+  <div class="nav" style="gap:8px">
+    <button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button>
+    <div style="display:flex;align-items:center;gap:8px;background:var(--surf);border:1.5px solid rgba(139,92,246,.18);border-radius:var(--r);padding:8px 13px;flex:1">
+      <span style="color:var(--mut)">🔍</span><input id="sr-inp" placeholder="Buscar eventos, cidades..." oninput="doSearch()" autofocus style="background:none;border:none;color:var(--txt);font-size:13px;flex:1;outline:none;font-family:var(--font-b)"/>
+    </div>
+  </div>
+  <div style="padding:9px 14px 3px;font-size:10px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.5px">Cidades</div>
+  <div style="padding:0 14px 9px;display:flex;flex-wrap:wrap;gap:6px">
+    <button class="chip on" onclick="srCity('Todas',this)">Todas</button>
+    <button class="chip" onclick="srCity('Rio do Sul',this)">Rio do Sul</button>
+    <button class="chip" onclick="srCity('Ituporanga',this)">Ituporanga</button>
+    <button class="chip" onclick="srCity('Ibirama',this)">Ibirama</button>
+    <button class="chip" onclick="srCity('Taió',this)">Taió</button>
+    <button class="chip" onclick="srCity('Agrolândia',this)">Agrolândia</button>
+    <button class="chip" onclick="srCity('Lontras',this)">Lontras</button>
+  </div>
+  <div style="flex:1;overflow-y:auto" class="pb80"><div class="sec" style="padding-top:4px"><div id="sr-list"></div></div></div>
+</div>
+
+<!-- DETAIL -->
+<div id="s-detail" class="screen">
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div style="position:relative">
+      <div class="dh" id="d-hero"><span id="d-emoji">🎸</span></div>
+      <div class="dh-actions">
+        <button class="icon-btn" onclick="back()">←</button>
+        <div style="display:flex;gap:7px">
+          <button class="icon-btn" onclick="doShare()">↗</button>
+          <button class="icon-btn" id="fav-btn" onclick="doFav()">🤍</button>
+        </div>
+      </div>
+    </div>
+    <div class="dbody">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+        <span class="pill" id="d-cat-badge">Música</span>
+        <span class="verified" id="d-verified">✅ Verificado</span>
+      </div>
+      <div style="font-family:var(--font-h);font-size:18px;font-weight:800;margin-bottom:8px;line-height:1.2" id="d-title">Evento</div>
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap">
+        <div id="d-stars-disp" style="display:flex;gap:1px"></div>
+        <span style="font-size:13px;font-weight:700" id="d-rating-val">4.3</span>
+        <span style="font-size:11px;color:var(--mut)" id="d-rcount">(127)</span>
+        <button class="sa" onclick="go('s-review')">Avaliar ★</button>
+      </div>
+      <div class="d-info-row"><div class="d-icon">📅</div><div><div class="d-lbl">Data e hora</div><div class="d-val" id="d-date">—</div></div></div>
+      <div class="d-info-row"><div class="d-icon">📍</div><div><div class="d-lbl">Local</div><div class="d-val" id="d-local">—</div></div></div>
+      <div class="d-info-row"><div class="d-icon">🏙</div><div><div class="d-lbl">Cidade</div><div class="d-val" id="d-city">—</div></div></div>
+      <div class="d-info-row"><div class="d-icon">🗺</div><div><div class="d-lbl">Endereço</div><div class="d-val" id="d-addr">—</div></div></div>
+      <div class="d-info-row" style="border:none"><div class="d-icon">👥</div><div><div class="d-lbl">Vagas</div><div class="d-val" id="d-vagas">—</div></div></div>
+      <div class="divider" style="margin:0 0 11px"></div>
+      <div style="font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:4px">Sobre o evento</div>
+      <div style="font-size:12px;color:var(--mut);line-height:1.8;padding-bottom:12px" id="d-desc">—</div>
+      <div class="sh"><span class="st" style="font-size:13px">📸 Fotos</span></div>
+      <div class="photo-scroll" id="d-photos"></div>
+      <div class="sh" style="margin-top:12px"><span class="st" style="font-size:13px">🗺 Localização</span></div>
+      <div class="map-box" onclick="toast('Abrindo Google Maps 🗺')">
+        <span style="font-size:22px">📍</span>
+        <span style="font-size:12px;font-weight:700;color:var(--acc)" id="map-local">—</span>
+        <span style="font-size:10px;color:var(--mut)" id="map-city">—</span>
+        <span style="font-size:10px;color:var(--p);margin-top:1px">Ver no mapa ↗</span>
+      </div>
+      <div class="sh"><span class="st" style="font-size:13px">⭐ Avaliações</span><button class="sa" onclick="go('s-review')">Avaliar</button></div>
+      <div id="d-reviews"></div>
+    </div>
+  </div>
+  <div class="ticket-pane">
+    <div style="font-size:10px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px">Ingressos</div>
+    <div id="ticket-opts"></div>
+    <div style="display:flex;align-items:center;gap:11px;margin:9px 0">
+      <button style="width:30px;height:30px;border-radius:50%;background:var(--surf2);border:1px solid rgba(139,92,246,.22);color:var(--txt);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="chgQty(-1)">−</button>
+      <span style="font-size:15px;font-weight:700;min-width:22px;text-align:center" id="qty-v">1</span>
+      <button style="width:30px;height:30px;border-radius:50%;background:var(--surf2);border:1px solid rgba(139,92,246,.22);color:var(--txt);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="chgQty(1)">+</button>
+      <span style="font-size:11px;color:var(--mut)">ingresso(s)</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span style="color:var(--mut)">Subtotal</span><span id="co-sub">—</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;padding:7px 0 2px;border-top:1px solid rgba(139,92,246,.12);margin-top:3px"><span>Total</span><span style="color:var(--acc)" id="co-tot">—</span></div>
+    <div style="font-size:10px;color:var(--mut);margin-bottom:10px;display:flex;align-items:center;gap:3px">ℹ️ <span id="fee-txt">+ R$ 3,00 por ingresso (taxa do site)</span></div>
+    <button class="btnP" onclick="go('s-checkout')">Garantir Ingresso</button>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div id="s-checkout" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Finalizar Compra</span><div style="width:34px"></div></div>
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div class="sec">
+      <div style="background:var(--surf);border-radius:var(--r);padding:12px;margin-bottom:12px;border:1px solid rgba(139,92,246,.15)">
+        <div style="font-size:9px;color:var(--mut);margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px">EVENTO</div>
+        <div style="font-family:var(--font-h);font-weight:700;font-size:13px" id="co-ename">—</div>
+        <div style="font-size:10px;color:var(--mut);margin-top:2px" id="co-einfo">—</div>
+      </div>
+      <div style="background:var(--surf);border-radius:var(--r);padding:13px;margin-bottom:12px;border:1px solid rgba(139,92,246,.15)">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px">Seus dados</div>
+        <input class="finput" type="text" placeholder="Nome completo" style="margin-bottom:7px" id="co-nome"/>
+        <input class="finput" type="email" placeholder="E-mail" style="margin-bottom:7px" id="co-email"/>
+        <input class="finput" type="tel" placeholder="WhatsApp" id="co-whats"/>
+      </div>
+      <div style="background:var(--surf);border-radius:var(--r);padding:13px;margin-bottom:12px;border:1px solid rgba(139,92,246,.15)">
+        <div style="font-size:12px;font-weight:700;margin-bottom:9px">Resumo</div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:2px 0"><span style="color:var(--mut)" id="coo-tipo">—</span><span id="coo-sub">—</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:2px 0"><span style="color:var(--mut)">Taxa do site</span><span id="coo-taxa" style="color:var(--mut)">—</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;padding:7px 0 0;border-top:1px solid rgba(139,92,246,.12);margin-top:5px"><span>Total</span><span style="color:var(--acc)" id="coo-total">—</span></div>
+      </div>
+      <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.16);border-radius:var(--r);padding:10px;margin-bottom:12px;font-size:11px;color:var(--grn);display:flex;align-items:center;gap:7px">🔒 Pagamento seguro — Pix, Cartão ou Boleto</div>
+      <button class="btnP" onclick="confirmBuy()">Confirmar e Pagar</button>
+      <p style="text-align:center;font-size:10px;color:var(--mut);margin-top:9px">Dúvidas? <span style="color:var(--acc)">suporte@maxevento.com.br</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- SUGGEST -->
+<div id="s-suggest" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Sugerir Evento</span><div style="width:34px"></div></div>
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div class="sec">
+      <div style="background:rgba(139,92,246,.06);border-radius:var(--r);padding:11px;margin-bottom:13px;font-size:11px;color:var(--mut)">📋 Preencha e nossa equipe analisa em até 24h.</div>
+      <div class="fgroup"><label class="flabel">Nome do evento *</label><input class="finput" id="sg-name" placeholder="Ex: Festival de Jazz do Alto Vale"/></div>
+      <div class="fgroup"><label class="flabel">Categoria *</label>
+        <select class="finput" id="sg-cat" onchange="updateSgSubcat()">
+          <option value="">Selecione...</option>
+          <option>Música</option><option>Teatro</option><option>Cultura</option>
+          <option>Oficina</option><option>Palestra</option><option>Negócio</option>
+        </select>
+      </div>
+      <div class="fgroup" id="sg-sub-grp" style="display:none"><label class="flabel">Subcategoria</label><select class="finput" id="sg-sub"></select></div>
+      <div class="fgroup"><label class="flabel">Data e hora *</label><input class="finput" type="datetime-local" id="sg-date" style="color:var(--mut)"/></div>
+      <div class="fgroup"><label class="flabel">Cidade *</label>
+        <select class="finput" id="sg-city">
+          <option>Rio do Sul</option><option>Ituporanga</option><option>Ibirama</option>
+          <option>Taió</option><option>Agrolândia</option><option>Lontras</option><option>Pouso Redondo</option><option>Outra</option>
+        </select>
+      </div>
+      <div class="fgroup"><label class="flabel">Local / Endereço *</label><input class="finput" id="sg-addr" placeholder="Nome do local e endereço completo"/></div>
+      <div class="fgroup"><label class="flabel">Capacidade máxima</label><input class="finput" type="number" id="sg-cap" placeholder="Ex: 200 pessoas"/></div>
+      <div class="fgroup"><label class="flabel">Descrição *</label><textarea class="finput ftarea" id="sg-desc" placeholder="Descreva o evento, atrações, programação..."></textarea></div>
+      <div class="fgroup"><label class="flabel">Tipo de ingresso</label>
+        <select class="finput" id="sg-tkt">
+          <option>Gratuito (reserva de vaga)</option><option>Pago</option><option>Gratuito e Pago</option>
+        </select>
+      </div>
+      <div class="fgroup"><label class="flabel">Preço (se pago)</label><input class="finput" type="number" id="sg-price" placeholder="Ex: 50.00"/></div>
+      <div class="fgroup"><label class="flabel">Seu nome / organização *</label><input class="finput" id="sg-org" placeholder="Nome ou empresa"/></div>
+      <div class="fgroup"><label class="flabel">Contato (WhatsApp ou e-mail) *</label><input class="finput" id="sg-contact" placeholder="(47) 9 9999-9999 ou email@..."/></div>
+      <button class="btnP" onclick="submitSuggest()">Enviar Sugestão ↗</button>
+      <div style="text-align:center;font-size:10px;color:var(--mut);margin-top:9px">Taxa do site: R$ 3,00 a R$ 4,00 por ingresso vendido</div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div id="s-review" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Avaliar Evento</span><div style="width:34px"></div></div>
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div class="sec">
+      <div style="text-align:center;padding:18px 0 9px">
+        <div id="rv-ename" style="font-family:var(--font-h);font-size:16px;font-weight:700;margin-bottom:13px">—</div>
+        <div style="font-size:11px;color:var(--mut);margin-bottom:9px">Toque nas estrelas para avaliar</div>
+        <div style="display:flex;justify-content:center;gap:7px;margin-bottom:9px" id="istar-row">
+          <span class="istar" onclick="setRating(1)">★</span><span class="istar" onclick="setRating(2)">★</span>
+          <span class="istar" onclick="setRating(3)">★</span><span class="istar" onclick="setRating(4)">★</span>
+          <span class="istar" onclick="setRating(5)">★</span>
+        </div>
+        <div id="rv-label" style="font-size:13px;font-weight:600;color:var(--ylw);min-height:20px"></div>
+      </div>
+      <div class="fgroup" style="margin-top:9px"><label class="flabel">Seu comentário</label><textarea class="finput ftarea" id="rv-text" placeholder="Conte como foi..."></textarea></div>
+      <button class="btnP" onclick="submitReview()">Publicar Avaliação ⭐</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="s-profile" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Minha Conta</span><button class="nb" onclick="doLogout()" style="-webkit-text-fill-color:var(--mut)" title="Sair">🚪</button></div>
+  <div style="flex:1;overflow-y:auto" class="pb80">
+    <div class="sec">
+      <div style="display:flex;flex-direction:column;align-items:center;padding:12px 0 18px">
+        <div style="width:62px;height:62px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:9px" id="prof-avatar">🎉</div>
+        <div style="font-family:var(--font-h);font-size:16px;font-weight:700" id="prof-name">—</div>
+        <div style="font-size:11px;color:var(--mut);margin-top:2px" id="prof-role">—</div>
+      </div>
+      <div style="background:var(--surf);border-radius:var(--r);border:1px solid rgba(139,92,246,.13);overflow:hidden;margin-bottom:13px">
+        <div class="d-info-row" style="padding:12px 13px;cursor:pointer;border:none" onclick="go('s-tickets')"><span>🎫</span><span style="margin-left:9px;font-size:12px">Meus Ingressos</span><span style="margin-left:auto;color:var(--mut);font-size:11px" id="tkt-count-badge"></span><span style="color:var(--mut);margin-left:5px">→</span></div>
+        <div class="divider"></div>
+        <div class="d-info-row" style="padding:12px 13px;cursor:pointer;border:none" onclick="go('s-favorites')"><span>❤️</span><span style="margin-left:9px;font-size:12px">Favoritos</span><span style="margin-left:auto;color:var(--mut);font-size:11px" id="fav-count-badge"></span><span style="color:var(--mut);margin-left:5px">→</span></div>
+        <div class="divider"></div>
+        <div class="d-info-row" style="padding:12px 13px;cursor:pointer;border:none" onclick="go('s-myreviews')"><span>⭐</span><span style="margin-left:9px;font-size:12px">Minhas Avaliações</span><span style="margin-left:auto;color:var(--mut);font-size:11px" id="rv-count-badge"></span><span style="color:var(--mut);margin-left:5px">→</span></div>
+        <div class="divider"></div>
+        <div class="d-info-row" style="padding:12px 13px;cursor:pointer;border:none" onclick="go('s-suggest')"><span>📢</span><span style="margin-left:9px;font-size:12px">Sugerir Evento</span><span style="margin-left:auto;color:var(--mut)">→</span></div>
+        <div id="admin-menu-item" style="display:none">
+          <div class="divider"></div>
+          <div class="d-info-row" style="padding:12px 13px;cursor:pointer;border:none" onclick="go('s-admin')"><span>⚙️</span><span style="margin-left:9px;font-size:12px;color:var(--ylw)">Painel Admin</span><span style="margin-left:auto;color:var(--mut)">→</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+        <div style="text-align:center;font-size:10px;color:var(--mut)">maxevento.com.br · suporte@maxevento.com.br</div>
+        <div style="text-align:center;font-size:10px;color:var(--mut)">📸 @venha.aqui.altovale</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MY TICKETS -->
+<div id="s-tickets" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Meus Ingressos</span><div style="width:34px"></div></div>
+  <div style="flex:1;overflow-y:auto" class="pb80"><div class="sec" id="tickets-body"></div></div>
+</div>
+
+<!-- FAVORITES -->
+<div id="s-favorites" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Favoritos</span><div style="width:34px"></div></div>
+  <div style="flex:1;overflow-y:auto" class="pb80"><div class="sec" id="fav-body"></div></div>
+</div>
+
+<!-- MY REVIEWS -->
+<div id="s-myreviews" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">Minhas Avaliações</span><div style="width:34px"></div></div>
+  <div style="flex:1;overflow-y:auto" class="pb80"><div class="sec" id="myreviews-body"></div></div>
+</div>
+
+<!-- ADMIN -->
+<div id="s-admin" class="screen">
+  <div class="nav"><button class="nb" onclick="back()" style="-webkit-text-fill-color:var(--mut)">←</button><span style="font-family:var(--font-h);font-size:14px;font-weight:700">⚙️ Painel Admin</span><div style="width:34px"></div></div>
+  <div class="chips" id="admin-chips">
+    <button class="chip on" onclick="adminFilter('todos',this)">Todos</button>
+    <button class="chip" onclick="adminFilter('pendente',this)">⏳ Pendentes</button>
+    <button class="chip" onclick="adminFilter('aprovado',this)">✅ Aprovados</button>
+    <button class="chip" onclick="adminFilter('reprovado',this)">❌ Reprovados</button>
+  </div>
+  <div style="flex:1;overflow-y:auto" class="pb80"><div class="sec" id="admin-list"></div></div>
+</div>
+
+<!-- BNAV -->
+<div class="bnav" id="main-bnav" style="display:none">
+  <button class="bi on" id="bi0" onclick="go('s-home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Início</button>
+  <button class="bi" id="bi1" onclick="go('s-events')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Eventos</button>
+  <button class="bi" id="bi2" onclick="go('s-search')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Buscar</button>
+  <button class="bi" id="bi3" onclick="go('s-suggest')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Sugerir</button>
+  <button class="bi" id="bi4" onclick="go('s-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Conta</button>
+</div>
+
+<script>
+// ── DATA ──
+const SUBCATS={Música:['Rock','Sertanejo','Eletrônica','MPB','Jazz','Forró','Gospel','Clássica','Pop'],Teatro:['Comédia','Drama','Musical','Infantil','Experimental'],Cultura:['Artes Visuais','Dança','Literatura','Gastronomia','Folclore'],Oficina:['Artesanato','Culinária','Tecnologia','Arte','Jardinagem'],Palestra:['Educação','Saúde','Tecnologia','Motivacional','Meio Ambiente'],Negócio:['Empreendedorismo','Marketing','Finanças','Agro','Networking']};
+const CATS=[{id:'Música',em:'🎵',sub:'Rock · Sertanejo · Forró',tag:'tag-p'},{id:'Teatro',em:'🎭',sub:'Comédia · Drama · Musical',tag:'tag-t'},{id:'Cultura',em:'🎨',sub:'Artes · Dança · Gastro',tag:'tag-k'},{id:'Oficina',em:'🛠',sub:'Arte · Culinária · Tech',tag:'tag-a'},{id:'Palestra',em:'🎤',sub:'Educação · Saúde · Tech',tag:'tag-b'},{id:'Negócio',em:'💼',sub:'Empreend. · Finanças',tag:'tag-g'}];
+const EVENTS=[
+  {id:0,name:'Festival Rock no Vale',cat:'Música',sub:'Rock',tag:'tag-p',em:'🎸',bg:'linear-gradient(135deg,#3B0764,#7C3AED)',date:'28 Abr · 20:00',local:'Arena Rio do Sul',city:'Rio do Sul',addr:'Rua XV de Novembro, 200 — Centro',desc:'Uma noite épica de rock ao vivo com as melhores bandas do Alto Vale. Palco profissional, iluminação cênica, food trucks e área VIP. Maior de 18 anos, documento obrigatório.',pv:45,rating:4.3,rc:127,vagas:'🟢 Vagas disponíveis (320/500)',verified:true,past:false,feat:true,photos:['🎸','🎤','🥁','🎶','🔊'],tickets:[{n:'Pista',desc:'Acesso geral',p:45},{n:'VIP',desc:'Área premium + open bar',p:90}]},
+  {id:1,name:'Noite de Teatro Clássico',cat:'Teatro',sub:'Drama',tag:'tag-t',em:'🎭',bg:'linear-gradient(135deg,#064E3B,#059669)',date:'02 Mai · 19:30',local:'Teatro Municipal',city:'Ituporanga',addr:'Praça Central, s/n — Centro',desc:'O grupo cultural de Ituporanga apresenta duas peças clássicas com cenografia profissional e figurinos elaborados. Evento para toda a família.',pv:30,rating:4.7,rc:89,vagas:'🟡 Poucas vagas (48/80)',verified:true,past:false,feat:true,photos:['🎭','🎪','🎨','✨','🌟'],tickets:[{n:'Inteira',desc:'Acesso geral',p:30},{n:'Meia',desc:'Estudante/idoso (doc. obrigatório)',p:15}]},
+  {id:2,name:'Summit Empreendedor SC',cat:'Negócio',sub:'Empreendedorismo',tag:'tag-g',em:'💼',bg:'linear-gradient(135deg,#78350F,#D97706)',date:'10 Mai · 08:00',local:'Centro de Eventos',city:'Ibirama',addr:'Av. Brasil, 1500 — Bairro Industrial',desc:'O maior encontro de empreendedores do Alto Vale com palestras, painéis, pitch de startups, feira de negócios e networking. Café da manhã e almoço incluídos.',pv:80,rating:4.5,rc:203,vagas:'🟢 Vagas disponíveis (180/300)',verified:true,past:false,feat:true,photos:['💼','🎤','📊','🤝','🏆'],tickets:[{n:'Individual',desc:'1 dia completo',p:80},{n:'Dois dias',desc:'Acesso total + material',p:140}]},
+  {id:3,name:'Oficina de Aquarela',cat:'Oficina',sub:'Arte',tag:'tag-a',em:'🎨',bg:'linear-gradient(135deg,#831843,#EC4899)',date:'15 Mai · 14:00',local:'Espaço Cultural',city:'Taió',addr:'Rua da Cultura, 45 — Vila Nova',desc:'Aprenda técnicas de aquarela com artistas locais. Material completo incluso. Adequado para todas as idades e níveis. Vagas super limitadas!',pv:0,rating:4.9,rc:54,vagas:'🟡 Poucas vagas (22/30)',verified:true,past:false,feat:false,photos:['🎨','🖌️','🖼️','✏️','🌈'],tickets:[{n:'Gratuito',desc:'Reservar minha vaga',p:0}]},
+  {id:4,name:'Palestra: IA no Agronegócio',cat:'Palestra',sub:'Tecnologia',tag:'tag-b',em:'🤖',bg:'linear-gradient(135deg,#1E3A5F,#2563EB)',date:'20 Mai · 18:30',local:'SENAI',city:'Agrolândia',addr:'Rod. SC-350, km 12 — Zona Industrial',desc:'Como a IA está revolucionando a agricultura no Alto Vale. Cases reais de produtores locais. Coffee break incluso. Reserva obrigatória mesmo sendo gratuito.',pv:0,rating:4.4,rc:31,vagas:'🟢 Vagas disponíveis (95/150)',verified:true,past:false,feat:false,photos:['🤖','🌱','📊','💡','🚜'],tickets:[{n:'Gratuito',desc:'Reservar minha vaga',p:0}]},
+  {id:5,name:'Forró das Estrelas',cat:'Música',sub:'Forró',tag:'tag-p',em:'🎻',bg:'linear-gradient(135deg,#4C1D95,#8B5CF6)',date:'25 Mai · 21:00',local:'Clube Recreativo',city:'Lontras',addr:'Rua das Palmeiras, 78 — Jardim',desc:'A maior festa de forró do Alto Vale com banda ao vivo, aulas de dança e área gastronômica especial.',pv:25,rating:4.6,rc:0,vagas:'🟢 Vagas disponíveis (200/400)',verified:false,past:false,feat:false,photos:['🎻','🎺','💃','🕺','🌟'],tickets:[{n:'Pista',desc:'Acesso geral',p:25},{n:'Camarote',desc:'Mesa reservada + garçom',p:60}]},
+  {id:6,name:'Festival de Jazz — Abr',cat:'Música',sub:'Jazz',tag:'tag-p',em:'🎷',bg:'linear-gradient(135deg,#1E1B4B,#4338CA)',date:'12 Abr · 20:00',local:'Parque Municipal',city:'Rio do Sul',addr:'Av. do Parque, s/n — Centro',desc:'Evento encerrado com sucesso. Mais de 800 pessoas presentes!',pv:0,rating:4.2,rc:88,vagas:'✅ Encerrado',verified:true,past:true,feat:false,photos:['🎷','🎹','🎸','🎺','🎵'],tickets:[]},
+  {id:7,name:'Seminário de Saúde Mental',cat:'Palestra',sub:'Saúde',tag:'tag-b',em:'🧠',bg:'linear-gradient(135deg,#0C4A6E,#0891B2)',date:'05 Abr · 14:00',local:'UBS Central',city:'Rio do Sul',addr:'Rua da Saúde, 321 — Centro',desc:'Evento encerrado.',pv:0,rating:4.8,rc:112,vagas:'✅ Encerrado',verified:true,past:true,feat:false,photos:['🧠','❤️','🩺','💊','🌿'],tickets:[]}
+];
+const ADMIN_ITEMS=[
+  {id:'a1',name:'Show Sertanejo — Pouso Redondo',cat:'Música',sub:'Sertanejo',org:'João Batista Eventos',date:'01 Jun · 20:00',city:'Pouso Redondo',status:'pendente',desc:'Show com dupla sertaneja regional. Capacidade: 600 pessoas.'},
+  {id:'a2',name:'Feira Gastronômica do Vale',cat:'Cultura',sub:'Gastronomia',org:'Associação Comercial',date:'08 Jun · 10:00',city:'Rio do Sul',status:'pendente',desc:'Feira com pratos típicos da região. Entrada gratuita.'},
+  {id:'a3',name:'Workshop de Marketing Digital',cat:'Negócio',sub:'Marketing',org:'SEBRAE Alto Vale',date:'15 Jun · 08:00',city:'Ibirama',status:'aprovado',desc:'Capacitação para empreendedores digitais.'},
+  {id:'a4',name:'Peça Infantil: O Pequeno Príncipe',cat:'Teatro',sub:'Infantil',org:'Grupo Teatral Ibirama',date:'22 Jun · 15:00',city:'Ibirama',status:'reprovado',desc:'Informações incompletas. Aguardando reenvio.'}
+];
+
+// ── STATE ──
+let NAV=[],CUR_EV=null,CUR_QTY=1,CUR_PV=0,CUR_TIPO='',CUR_RAT=0,EV_CAT='Todos',EV_CITY='Todas',ADMIN_F='todos';
+let USER={logged:false,name:'',role:'',isAdmin:false};
+let MY_TICKETS=[],MY_FAVS=new Set(),MY_REVIEWS=[];
+let REG_DATA={};
+let INTERESTS=new Set();
+
+// ── AUTH ──
+function doLogin(){
+  const u=document.getElementById('l-user').value.trim();
+  const p=document.getElementById('l-pass').value.trim();
+  const err=document.getElementById('login-err');
+  if(u==='Liquitas'&&p==='123321'){loginAs('Liquitas','Administrador',true);}
+  else if(u&&p&&p.length>=4){loginAs(u,'Participante',false);}
+  else{err.style.display='block';setTimeout(()=>err.style.display='none',2500);}
+}
+function doGuestLogin(){loginAs('Visitante','Participante',false);}
+function loginAs(name,role,isAdmin){
+  USER={logged:true,name,role,isAdmin};
+  document.getElementById('main-bnav').style.display='flex';
+  document.getElementById('nav-admin-btn').style.display=isAdmin?'block':'none';
+  document.getElementById('admin-menu-item').style.display=isAdmin?'block':'none';
+  initHome();go('s-home');
+}
+function doLogout(){
+  USER={logged:false,name:'',role:'',isAdmin:false};
+  document.getElementById('main-bnav').style.display='none';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-login').classList.add('active');
+  document.getElementById('l-user').value='';document.getElementById('l-pass').value='';
+  NAV=[];
+}
+function switchAuthTab(t){
+  document.getElementById('tab-login').classList.toggle('on',t==='login');
+  document.getElementById('tab-reg').classList.toggle('on',t==='reg');
+}
+document.getElementById('l-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+// ── REGISTER ──
+let REG_STEP=1;
+function setRegStep(n){
+  REG_STEP=n;
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('reg-step'+i);
+    if(el) el.style.display=i===n?'block':'none';
+  });
+  // dots
+  const dots=[document.getElementById('sdot1'),document.getElementById('sdot2'),document.getElementById('sdot3')];
+  const lines=[document.getElementById('sline1'),document.getElementById('sline2')];
+  dots.forEach((d,i)=>{
+    d.classList.remove('active','done');
+    if(i+1<n) d.classList.add('done');
+    else if(i+1===n) d.classList.add('active');
+  });
+  lines.forEach((l,i)=>{l.classList.toggle('done',i+1<n);});
+}
+function regStep1(){
+  const nome=document.getElementById('r-nome').value.trim();
+  const sobrenome=document.getElementById('r-sobrenome').value.trim();
+  const email=document.getElementById('r-email').value.trim();
+  const city=document.getElementById('r-city').value;
+  if(!nome||!sobrenome){toast('⚠️ Informe nome e sobrenome');return;}
+  if(!email||!email.includes('@')){toast('⚠️ E-mail inválido');return;}
+  if(!city){toast('⚠️ Selecione sua cidade');return;}
+  REG_DATA={nome,sobrenome,email,phone:document.getElementById('r-phone').value,city};
+  setRegStep(2);
+}
+function regBackStep(){setRegStep(1);}
+function regStep2(){
+  const user=document.getElementById('r-user').value.trim();
+  const pass=document.getElementById('r-pass').value;
+  const pass2=document.getElementById('r-pass2').value;
+  const terms=document.getElementById('r-terms').checked;
+  if(!user||user.length<4||/\s/.test(user)){toast('⚠️ Usuário inválido (mín. 4 chars, sem espaços)');return;}
+  if(!pass||pass.length<6){toast('⚠️ Senha deve ter mínimo 6 caracteres');return;}
+  if(pass!==pass2){toast('⚠️ As senhas não coincidem');return;}
+  if(!terms){toast('⚠️ Aceite os termos para continuar');return;}
+  REG_DATA={...REG_DATA,user,pass};
+  setRegStep(3);
+  document.getElementById('reg-success-name').textContent='Bem-vindo, '+REG_DATA.nome+'! 🎉';
+}
+function loginFromReg(){
+  loginAs(REG_DATA.nome+' '+REG_DATA.sobrenome,'Participante',false);
+}
+function toggleInterest(el,cat){
+  if(INTERESTS.has(cat)){INTERESTS.delete(cat);el.classList.remove('on');}
+  else{INTERESTS.add(cat);el.classList.add('on');}
+}
+function togglePwd(id,btn){
+  const inp=document.getElementById(id);
+  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
+  else{inp.type='password';btn.textContent='👁';}
+}
+function checkPwdStrength(inp){
+  const v=inp.value,fill=document.getElementById('strength-fill'),txt=document.getElementById('strength-txt');
+  let s=0,label='',color='';
+  if(v.length>=6)s++;if(v.length>=10)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^a-zA-Z0-9]/.test(v))s++;
+  const levels=[['0%','',''],['20%','#EF4444','Muito fraca'],['40%','#F59E0B','Fraca'],['60%','#EAB308','Regular'],['80%','#22C55E','Forte'],['100%','#10B981','Muito forte']];
+  const l=levels[s]||levels[0];
+  fill.style.width=l[0];fill.style.background=l[1];txt.textContent=l[2];
+}
+function checkUsername(inp){
+  const hint=document.getElementById('user-hint');
+  if(inp.value.length<4){hint.textContent='Mín. 4 caracteres';hint.style.color='#F87171';}
+  else if(/\s/.test(inp.value)){hint.textContent='Sem espaços';hint.style.color='#F87171';}
+  else{hint.textContent='✓ Nome de usuário disponível';hint.style.color='var(--grn)';}
+}
+function maskPhone(inp){
+  let v=inp.value.replace(/\D/g,'');
+  if(v.length>2)v=`(${v.slice(0,2)}) ${v.slice(2)}`;
+  if(v.length>9)v=v.slice(0,9)+' '+v.slice(9);
+  if(v.length>14)v=v.slice(0,14)+'-'+v.slice(14,18);
+  inp.value=v.slice(0,19);
+}
+
+// ── NAV ──
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  NAV.push(id);updBnav(id);
+  // scroll to top
+  setTimeout(()=>{const el=document.getElementById(id);if(el){const scroll=el.querySelector('[style*="overflow-y"]')||el;scroll.scrollTop=0;}},50);
+  const handlers={
+    's-events':()=>{renderEvList();renderEvChips();},
+    's-search':()=>renderList(EVENTS,document.getElementById('sr-list')),
+    's-profile':()=>renderProfile(),
+    's-tickets':()=>renderTickets(),
+    's-favorites':()=>renderFavorites(),
+    's-myreviews':()=>renderMyReviews(),
+    's-admin':()=>{if(!USER.isAdmin){toast('⛔ Acesso restrito ao administrador');back();return;}renderAdmin(ADMIN_F);},
+    's-register':()=>setRegStep(1),
+  };
+  if(handlers[id]) handlers[id]();
+}
+function back(){NAV.pop();const p=NAV.length?NAV[NAV.length-1]:'s-home';NAV.pop();go(p);}
+function updBnav(id){
+  const map={'s-home':0,'s-events':1,'s-search':2,'s-suggest':3,'s-profile':4};
+  for(let i=0;i<5;i++) document.getElementById('bi'+i).classList.toggle('on',i===map[id]);
+}
+
+// ── TOAST ──
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+
+// ── STARS ──
+function makeStars(r,sz){let s='';for(let i=1;i<=5;i++)s+=`<span style="font-size:${sz||12}px;color:${i<=Math.round(r)?'#FCD34D':'rgba(255,255,255,.16)'}">★</span>`;return s;}
+
+// ── EVENT CARD (compact) ──
+function makeEvCard(e,past){
+  const d=document.createElement('div');
+  d.className='ec';if(past)d.style.opacity='.6';
+  d.onclick=()=>openEv(e.id);
+  const priceLabel=past?'<span style="font-size:9px;color:var(--mut)">✅ Encerrado</span>':(e.pv===0?'<span style="color:var(--grn);font-size:11px;font-weight:700">GRÁTIS</span>':'<span class="price-tag">R$ '+e.pv+'</span>');
+  const bot=past?`<div style="display:flex;gap:1px">${makeStars(e.rating,10)}</div>`:priceLabel+'<button class="jbtn">Ver +</button>';
+  d.innerHTML=`<div class="ec-img" style="background:${e.bg}">${e.em}</div>
+  <div class="ec-body">
+    <span class="pill ${e.tag}" style="font-size:9px;margin-bottom:2px">${e.cat} · ${e.sub}</span>
+    <div class="ec-name">${e.name}</div>
+    <div class="ec-meta">📅 ${e.date} · 📍 ${e.city}</div>
+    <div class="ec-bot">${bot}</div>
+  </div>`;
+  return d;
+}
+function renderList(list,container,past){container.innerHTML='';list.forEach(e=>container.appendChild(makeEvCard(e,past||e.past)));}
+
+// ── OPEN EVENT ──
+function openEv(id){
+  CUR_EV=EVENTS[id];const e=CUR_EV;
+  document.getElementById('d-hero').style.background=e.bg;
+  document.getElementById('d-emoji').textContent=e.em;
+  document.getElementById('d-title').textContent=e.name;
+  document.getElementById('d-cat-badge').textContent=e.cat+' · '+e.sub;
+  document.getElementById('d-cat-badge').className='pill '+e.tag;
+  document.getElementById('d-verified').style.display=e.verified?'inline-flex':'none';
+  document.getElementById('d-date').textContent=e.date;
+  document.getElementById('d-local').textContent=e.local;
+  document.getElementById('d-city').textContent=e.city+', SC';
+  document.getElementById('d-addr').textContent=e.addr;
+  document.getElementById('d-vagas').textContent=e.vagas;
+  document.getElementById('d-desc').textContent=e.desc;
+  document.getElementById('d-rating-val').textContent=e.rating;
+  document.getElementById('d-rcount').textContent='('+e.rc+' avaliações)';
+  document.getElementById('d-stars-disp').innerHTML=makeStars(e.rating,13);
+  document.getElementById('map-local').textContent=e.local;
+  document.getElementById('map-city').textContent=e.city+', SC — Alto Vale do Itajaí';
+  document.getElementById('fav-btn').textContent=MY_FAVS.has(id)?'❤️':'🤍';
+  document.getElementById('rv-ename').textContent=e.name;
+  document.getElementById('co-ename').textContent=e.name;
+  document.getElementById('co-einfo').textContent=e.date+' · '+e.local;
+  // photos
+  const ph=document.getElementById('d-photos');ph.innerHTML='';
+  const phbg=['rgba(139,92,246,.2)','rgba(236,72,153,.2)','rgba(20,184,166,.2)','rgba(245,158,11,.2)','rgba(59,130,246,.2)'];
+  e.photos.forEach((p,i)=>{const d=document.createElement('div');d.className='ph-thumb';d.style.background=phbg[i%5];d.textContent=p;ph.appendChild(d);});
+  // reviews
+  const rv=document.getElementById('d-reviews');rv.innerHTML='';
+  const evRvs=MY_REVIEWS.filter(r=>r.evId===id);
+  const baseRvs=[{name:'Ana S.',av:'🧑',rating:5,date:'20 Abr',text:'Evento incrível! Organização impecável!'},{name:'Carlos M.',av:'👨',rating:4,date:'18 Abr',text:'Muito bom! Som poderia ser melhor no fundo, mas valeu cada centavo.'}];
+  [...evRvs,...(e.rc>0?baseRvs:[])].forEach(r=>{
+    const d=document.createElement('div');d.className='rv-card';
+    d.innerHTML=`<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><div style="width:26px;height:26px;border-radius:50%;background:var(--surf2);display:flex;align-items:center;justify-content:center;font-size:12px">${r.av||'👤'}</div><div><div style="font-size:12px;font-weight:600">${r.name}</div><div style="font-size:9px;color:var(--mut)">${r.date||'Agora'}</div></div><div style="margin-left:auto;display:flex;gap:1px">${makeStars(r.rating,10)}</div></div><div style="font-size:11px;color:var(--mut);line-height:1.6">${r.text}</div>`;
+    rv.appendChild(d);
+  });
+  if(!evRvs.length&&e.rc===0){rv.innerHTML='<div style="text-align:center;padding:14px;color:var(--mut);font-size:12px">Seja o primeiro a avaliar!</div>';}
+  // tickets
+  const to=document.getElementById('ticket-opts');to.innerHTML='';
+  CUR_PV=e.tickets.length?e.tickets[0].p:0;CUR_TIPO=e.tickets.length?e.tickets[0].n:'';CUR_QTY=1;
+  e.tickets.forEach((t,i)=>{
+    const d=document.createElement('div');d.className='topt'+(i===0?' on':'');
+    d.innerHTML=`<div><div style="font-size:12px;font-weight:600">${t.n}</div><div style="font-size:10px;color:var(--mut)">${t.desc}</div></div><span style="font-size:14px;font-weight:800;color:${t.p===0?'var(--grn)':'var(--acc)'}">${t.p===0?'GRÁTIS':'R$ '+t.p}</span>`;
+    d.onclick=()=>{document.querySelectorAll('.topt').forEach(x=>x.classList.remove('on'));d.classList.add('on');CUR_PV=t.p;CUR_TIPO=t.n;updateTotal();};
+    to.appendChild(d);
+  });
+  document.getElementById('qty-v').textContent='1';
+  document.getElementById('fee-txt').textContent=CUR_PV>0?'+ R$ 3,00 por ingresso (taxa do site)':'Sem taxa para eventos gratuitos';
+  updateTotal();go('s-detail');
+}
+function updateTotal(){
+  const sub=CUR_PV*CUR_QTY,taxa=CUR_PV>0?3*CUR_QTY:0;
+  const fmt=v=>v===0?'GRÁTIS':'R$ '+v.toFixed(2).replace('.',',');
+  document.getElementById('co-sub').textContent=fmt(sub);
+  document.getElementById('co-tot').textContent=fmt(sub+taxa);
+  document.getElementById('coo-tipo').textContent=(CUR_TIPO||'Ingresso')+' × '+CUR_QTY;
+  document.getElementById('coo-sub').textContent=fmt(sub);
+  document.getElementById('coo-taxa').textContent=taxa===0?'—':'R$ '+taxa.toFixed(2).replace('.',',');
+  document.getElementById('coo-total').textContent=fmt(sub+taxa);
+}
+function chgQty(d){CUR_QTY=Math.max(1,Math.min(10,CUR_QTY+d));document.getElementById('qty-v').textContent=CUR_QTY;updateTotal();}
+
+// ── BUY ──
+function confirmBuy(){
+  if(!CUR_EV)return;
+  const taxa=CUR_PV>0?3*CUR_QTY:0;
+  const tkt={evId:CUR_EV.id,evName:CUR_EV.name,tipo:CUR_TIPO,qty:CUR_QTY,total:CUR_PV*CUR_QTY+taxa,date:CUR_EV.date,local:CUR_EV.local,city:CUR_EV.city,em:CUR_EV.em,bg:CUR_EV.bg,pv:CUR_PV,boughtAt:new Date().toLocaleDateString('pt-BR')};
+  MY_TICKETS.push(tkt);
+  updateBadges();
+  toast('✅ Ingresso confirmado! Chegará por e-mail 🎉');
+  setTimeout(()=>go('s-tickets'),1200);
+}
+
+// ── FAV ──
+function doFav(){
+  if(!CUR_EV)return;const id=CUR_EV.id;
+  MY_FAVS.has(id)?MY_FAVS.delete(id):MY_FAVS.add(id);
+  document.getElementById('fav-btn').textContent=MY_FAVS.has(id)?'❤️':'🤍';
+  toast(MY_FAVS.has(id)?'❤️ Adicionado aos favoritos!':'Removido dos favoritos');
+  updateBadges();
+}
+
+// ── SHARE ──
+function doShare(){if(!CUR_EV)return;toast('📲 Link copiado! maxevento.com.br/evento/'+CUR_EV.id);}
+
+// ── REVIEW ──
+function setRating(n){CUR_RAT=n;const labels=['','Ruim','Regular','Bom','Muito bom','Excelente!'];document.querySelectorAll('.istar').forEach((s,i)=>s.classList.toggle('lit',i<n));document.getElementById('rv-label').textContent=labels[n];}
+function submitReview(){
+  if(!CUR_RAT){toast('Selecione uma nota ⭐');return;}
+  const txt=document.getElementById('rv-text').value||'';
+  MY_REVIEWS.push({evId:CUR_EV.id,evName:CUR_EV.name,rating:CUR_RAT,text:txt||'Ótimo evento!',name:USER.name,av:'👤',date:'Agora'});
+  toast('⭐ Avaliação publicada! Obrigado!');updateBadges();
+  CUR_RAT=0;document.querySelectorAll('.istar').forEach(s=>s.classList.remove('lit'));
+  document.getElementById('rv-label').textContent='';document.getElementById('rv-text').value='';
+  setTimeout(()=>back(),1200);
+}
+
+// ── PROFILE ──
+function renderProfile(){
+  document.getElementById('prof-name').textContent=USER.name;
+  document.getElementById('prof-role').textContent=USER.role+(USER.isAdmin?' · Admin MaxEvento':'');
+  document.getElementById('prof-avatar').textContent=USER.isAdmin?'⚙️':'🎉';
+  updateBadges();
+}
+function updateBadges(){
+  document.getElementById('tkt-count-badge').textContent=MY_TICKETS.length?MY_TICKETS.length+' ingresso(s)':'';
+  document.getElementById('fav-count-badge').textContent=MY_FAVS.size?MY_FAVS.size+' evento(s)':'';
+  document.getElementById('rv-count-badge').textContent=MY_REVIEWS.length?MY_REVIEWS.length+' avaliação(ões)':'';
+}
+
+// ── MY TICKETS ──
+function renderTickets(){
+  const c=document.getElementById('tickets-body');c.innerHTML='';
+  if(!MY_TICKETS.length){c.innerHTML='<div class="empty-state"><div class="em">🎫</div>Você ainda não tem ingressos.<br><br><button class="btnP" style="width:auto;padding:9px 18px;font-size:12px" onclick="go(\'s-events\')">Ver Eventos</button></div>';return;}
+  MY_TICKETS.forEach((t,i)=>{
+    const d=document.createElement('div');d.className='tkt-card';
+    d.innerHTML=`<div style="display:flex;align-items:center;gap:9px;margin-bottom:9px">
+      <div style="width:40px;height:40px;border-radius:9px;background:${t.bg};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${t.em}</div>
+      <div><div style="font-family:var(--font-h);font-size:13px;font-weight:700">${t.evName}</div><div style="font-size:10px;color:var(--mut)">${t.tipo} · ${t.qty}x</div></div>
+      <div style="margin-left:auto;text-align:right"><div style="font-size:12px;font-weight:700;color:var(--acc)">${t.pv===0?'GRÁTIS':'R$ '+t.total.toFixed(2).replace('.',',')}</div><div style="font-size:9px;color:var(--mut)">${t.boughtAt}</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--mut);background:var(--surf);border-radius:9px;padding:9px">
+      <span>📅 ${t.date}</span><span>📍 ${t.local} · ${t.city}</span>
+    </div>
+    <div style="margin-top:9px;display:flex;gap:7px">
+      <button class="btnO" style="flex:1;padding:7px;font-size:11px" onclick="toast('📲 Ingresso compartilhado!')">Compartilhar ↗</button>
+      <button class="jbtn" style="flex:1;padding:7px;font-size:11px;border-radius:9px" onclick="openEv(${t.evId})">Ver evento</button>
+    </div>`;
+    c.appendChild(d);
+  });
+}
+
+// ── FAVORITES ──
+function renderFavorites(){
+  const c=document.getElementById('fav-body');c.innerHTML='';
+  if(!MY_FAVS.size){c.innerHTML='<div class="empty-state"><div class="em">🤍</div>Nenhum favorito ainda.<br><br><button class="btnP" style="width:auto;padding:9px 18px;font-size:12px" onclick="go(\'s-events\')">Explorar Eventos</button></div>';return;}
+  EVENTS.filter(e=>MY_FAVS.has(e.id)).forEach(e=>c.appendChild(makeEvCard(e)));
+}
+
+// ── MY REVIEWS ──
+function renderMyReviews(){
+  const c=document.getElementById('myreviews-body');c.innerHTML='';
+  if(!MY_REVIEWS.length){c.innerHTML='<div class="empty-state"><div class="em">⭐</div>Você ainda não avaliou nenhum evento.<br><br><button class="btnP" style="width:auto;padding:9px 18px;font-size:12px" onclick="go(\'s-events\')">Ver Eventos</button></div>';return;}
+  MY_REVIEWS.forEach(r=>{
+    const d=document.createElement('div');d.className='rv-card';
+    d.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+      <div style="font-family:var(--font-h);font-size:12px;font-weight:700">${r.evName}</div>
+      <div style="display:flex;gap:1px">${makeStars(r.rating,11)}</div>
+    </div>
+    <div style="font-size:11px;color:var(--mut);line-height:1.6">${r.text}</div>
+    <button class="sa" style="margin-top:7px" onclick="openEv(${r.evId})">Ver evento →</button>`;
+    c.appendChild(d);
+  });
+}
+
+// ── SUGGEST ──
+function updateSgSubcat(){
+  const cat=document.getElementById('sg-cat').value;
+  const grp=document.getElementById('sg-sub-grp'),sel=document.getElementById('sg-sub');
+  if(cat&&SUBCATS[cat]){grp.style.display='block';sel.innerHTML=SUBCATS[cat].map(s=>`<option>${s}</option>`).join('');}
+  else grp.style.display='none';
+}
+function submitSuggest(){
+  const name=document.getElementById('sg-name').value.trim();
+  const cat=document.getElementById('sg-cat').value;
+  const org=document.getElementById('sg-org').value.trim();
+  if(!name||!cat||!org){toast('Preencha os campos obrigatórios *');return;}
+  const sub=document.getElementById('sg-sub')?.value||cat;
+  const city=document.getElementById('sg-city').value;
+  const date=document.getElementById('sg-date').value||'A definir';
+  const addr=document.getElementById('sg-addr').value||'A definir';
+  const desc=document.getElementById('sg-desc').value||'Sem descrição';
+  const contact=document.getElementById('sg-contact').value||'—';
+  ADMIN_ITEMS.unshift({id:'u'+Date.now(),name,cat,sub,org,date,city,status:'pendente',desc,contact});
+  toast('✅ Sugestão enviada! Nossa equipe analisa em até 24h 🎉');
+  setTimeout(()=>back(),1400);
+}
+
+// ── EVENTS LIST ──
+function renderEvList(){
+  const c=document.getElementById('ev-list');c.innerHTML='';
+  const q=(document.getElementById('ev-search')||{}).value?.toLowerCase()||'';
+  const list=EVENTS.filter(e=>{
+    if(e.past) return false;
+    if(EV_CAT!=='Todos'&&e.cat!==EV_CAT) return false;
+    if(EV_CITY!=='Todas'&&e.city!==EV_CITY) return false;
+    if(q&&!e.name.toLowerCase().includes(q)&&!e.city.toLowerCase().includes(q)&&!e.sub.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  if(!list.length){document.getElementById('ev-empty').style.display='block';return;}
+  document.getElementById('ev-empty').style.display='none';
+  list.forEach(e=>c.appendChild(makeEvCard(e)));
+}
+function filterEvList(){renderEvList();}
+function renderEvChips(){
+  const c=document.getElementById('ev-chips');c.innerHTML='';
+  ['Todos','Música','Teatro','Cultura','Oficina','Palestra','Negócio'].forEach(cat=>{
+    const b=document.createElement('button');b.className='chip'+(cat===EV_CAT?' on':'');b.textContent=cat;
+    b.onclick=()=>{EV_CAT=cat;document.querySelectorAll('#ev-chips .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderEvList();};
+    c.appendChild(b);
+  });
+}
+function evCity(city,el){EV_CITY=city;document.querySelectorAll('#city-chips .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');renderEvList();}
+
+// ── SEARCH ──
+function doSearch(){
+  const q=document.getElementById('sr-inp').value.toLowerCase();
+  const list=EVENTS.filter(e=>e.name.toLowerCase().includes(q)||e.city.toLowerCase().includes(q)||e.cat.toLowerCase().includes(q)||e.sub.toLowerCase().includes(q));
+  renderList(list,document.getElementById('sr-list'));
+}
+function srCity(city,el){
+  document.querySelectorAll('#s-search .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');
+  const list=city==='Todas'?EVENTS:EVENTS.filter(e=>e.city===city);
+  renderList(list,document.getElementById('sr-list'));
+}
+
+// ── HOME ──
+function homeCat(cat,el){
+  document.querySelectorAll('#home-chips .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');
+  const hl=document.getElementById('home-list');hl.innerHTML='';
+  const list=cat==='Todos'?EVENTS.filter(e=>!e.past):EVENTS.filter(e=>!e.past&&e.cat===cat);
+  list.slice(0,4).forEach(e=>hl.appendChild(makeEvCard(e)));
+}
+function initHome(){
+  const f=document.getElementById('feat-scroll');f.innerHTML='';
+  EVENTS.filter(e=>e.feat).forEach(e=>{
+    const d=document.createElement('div');d.className='fc';d.onclick=()=>openEv(e.id);
+    d.innerHTML=`<div class="fc-img" style="background:${e.bg}"><span class="pill ${e.tag}" style="position:absolute;top:8px;left:8px;font-size:8px">${e.cat}</span>${e.em}</div>
+    <div class="fc-ov"><div class="fc-name">${e.name}</div><div class="fc-info">📅 ${e.date} · 📍 ${e.city}</div>
+    <div style="display:flex;gap:1px;margin-top:2px">${makeStars(e.rating,9)} <span style="font-size:9px;color:rgba(255,255,255,.5);margin-left:2px">${e.rating}${e.verified?' ✅':''}</span></div></div>`;
+    f.appendChild(d);
+  });
+  const g=document.getElementById('cat-grid');g.innerHTML='';
+  CATS.forEach(c=>{
+    const d=document.createElement('div');d.className='ci';
+    d.innerHTML=`<div style="font-size:20px;margin-bottom:3px">${c.em}</div><div style="font-size:10px;font-weight:700;color:var(--txt)">${c.id}</div><div style="font-size:8px;color:var(--mut);margin-top:1px">${c.sub}</div>`;
+    d.onclick=()=>{EV_CAT=c.id;go('s-events');};g.appendChild(d);
+  });
+  const hl=document.getElementById('home-list');hl.innerHTML='';
+  EVENTS.filter(e=>!e.past).slice(0,4).forEach(e=>hl.appendChild(makeEvCard(e)));
+  const pl=document.getElementById('past-list');pl.innerHTML='';
+  EVENTS.filter(e=>e.past).forEach(e=>pl.appendChild(makeEvCard(e,true)));
+  document.getElementById('prof-name').textContent=USER.name;
+  document.getElementById('prof-role').textContent=USER.role+(USER.isAdmin?' · Admin MaxEvento':'');
+  document.getElementById('prof-avatar').textContent=USER.isAdmin?'⚙️':'🎉';
+}
+
+// ── ADMIN ──
+function renderAdmin(f){
+  const c=document.getElementById('admin-list');c.innerHTML='';
+  const list=f==='todos'?ADMIN_ITEMS:ADMIN_ITEMS.filter(a=>a.status===f);
+  if(!list.length){c.innerHTML='<div class="empty-state"><div class="em">📋</div>Nenhum item aqui.</div>';return;}
+  list.forEach(a=>{
+    const badge=a.status==='pendente'?'s-pend':a.status==='aprovado'?'s-aprv':'s-rej';
+    const label=a.status==='pendente'?'⏳ Pendente':a.status==='aprovado'?'✅ Aprovado':'❌ Reprovado';
+    const d=document.createElement('div');d.className='admin-card';
+    d.innerHTML=`<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:7px;margin-bottom:5px">
+      <div><div style="font-weight:700;font-size:12px;margin-bottom:2px">${a.name}</div>
+      <div style="font-size:10px;color:var(--mut)">${a.cat} · ${a.sub} · ${a.city}</div>
+      <div style="font-size:10px;color:var(--mut)">📅 ${a.date} · Org.: ${a.org||'—'}</div>
+      ${a.contact?`<div style="font-size:10px;color:var(--mut)">📞 ${a.contact}</div>`:''}
+      </div><span class="status-badge ${badge}">${label}</span></div>
+      <div style="font-size:11px;color:var(--mut);background:var(--surf);border-radius:9px;padding:7px;margin-bottom:${a.status==='pendente'?'9':'0'}px">${a.desc}</div>
+      ${a.status==='pendente'?`<div style="display:flex;gap:7px">
+        <button style="flex:1;padding:8px;border-radius:9px;background:rgba(52,211,153,.13);color:var(--grn);border:1px solid rgba(52,211,153,.22);font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-b)" onclick="adminAction('${a.id}','aprovado')">✅ Aprovar</button>
+        <button style="flex:1;padding:8px;border-radius:9px;background:rgba(239,68,68,.08);color:#F87171;border:1px solid rgba(239,68,68,.18);font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-b)" onclick="adminAction('${a.id}','reprovado')">❌ Reprovar</button>
+      </div>`:''}`;
+    c.appendChild(d);
+  });
+}
+function adminFilter(f,el){ADMIN_F=f;document.querySelectorAll('#admin-chips .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');renderAdmin(f);}
+function adminAction(id,status){
+  const item=ADMIN_ITEMS.find(a=>a.id===id);if(!item)return;item.status=status;
+  toast(status==='aprovado'?'✅ Evento aprovado e publicado!':'❌ Evento reprovado.');
+  renderAdmin(ADMIN_F);
+}
+
+// bounce animation
+const style=document.createElement('style');
+style.textContent='@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>
